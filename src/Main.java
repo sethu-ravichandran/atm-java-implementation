@@ -23,8 +23,7 @@ class ATM
 
 class IndianBankATM extends ATM{
 
-    public void initialize ()
-    {
+    public void initialize () throws InvalidAmountException, InsufficientBalanceException {
         Scanner scanner = new Scanner(System.in);
 
         int userChoice, inputAmount;
@@ -45,12 +44,24 @@ class IndianBankATM extends ATM{
                 case 1:
                     System.out.print("Enter the amount to be deposited ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
+                    if (inputAmount <= 0 )
+                    {
+                        throw new InvalidAmountException("Amount must be greater than 0.");
+                    }
                     depositAmount(inputAmount);
                     break;
 
                 case 2:
                     System.out.print("Enter the amount to be withdrawn ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
+                    if (inputAmount <= 0 )
+                    {
+                        throw new InvalidAmountException("Amount must be greater than 0.");
+                    }
+                    if (getAccountBalance() < inputAmount)
+                    {
+                        throw new InsufficientBalanceException("Insufficient account balance.");
+                    }
                     withDrawAmount(inputAmount);
                     break;
 
@@ -59,6 +70,7 @@ class IndianBankATM extends ATM{
                     break;
 
                 case 4:
+                    System.out.println("Thank you, Have a nice day :)");
                     exit(0);
 
                 default:
@@ -84,13 +96,21 @@ class IndianBankATM extends ATM{
 }
 
 public class Main {
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws InvalidAmountException, InsufficientBalanceException {
         IndianBankATM guindyATM = new IndianBankATM();
         guindyATM.initialize();
-
     }
+}
 
+class InvalidAmountException extends Exception{
+    public InvalidAmountException(String message) {
+        super(message);
+    }
+}
 
+class InsufficientBalanceException extends Exception{
+    public InsufficientBalanceException(String message) {
+        super(message);
+    }
 }
 
