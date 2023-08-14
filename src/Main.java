@@ -2,11 +2,49 @@ import java.util.Scanner;
 
 import static java.lang.System.exit;
 
-public class Main {
-    static int accountBalance; //global variable
+class ATM
+{
+    private int accountBalance;
 
+    public int getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void addMoney(int amountToBeDeposited)
+    {
+        accountBalance += amountToBeDeposited;
+    }
+
+    public void takeMoney(int amountToBeWithDrawn)
+    {
+        accountBalance -= amountToBeWithDrawn;
+    }
+}
+
+class IndianBankATM extends ATM{
+    void depositAmount(int inputAmount) {
+        addMoney(inputAmount);
+        checkBalance();
+    }
+
+    void withDrawAmount(int inputAmount) {
+        takeMoney(inputAmount);
+        checkBalance();
+    }
+
+    void checkBalance() {
+        System.out.println("________________________________");
+        System.out.println("Your balance is Rs. " + getAccountBalance());
+    }
+}
+
+public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
+
+        IndianBankATM guindyATM = new IndianBankATM();
+
         int userChoice, inputAmount;
 
         do{
@@ -25,17 +63,17 @@ public class Main {
                 case 1:
                     System.out.print("Enter the amount to be deposited ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
-                    depositAmount(inputAmount);
+                    guindyATM.depositAmount(inputAmount);
                     break;
 
                 case 2:
                     System.out.print("Enter the amount to be withdrawn ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
-                    withDrawAmount(inputAmount);
+                    guindyATM.withDrawAmount(inputAmount);
                     break;
 
                 case 3:
-                    checkBalance();
+                    guindyATM.checkBalance();
                     break;
 
                 case 4:
@@ -48,18 +86,6 @@ public class Main {
         }while (true);
     }
 
-    static void depositAmount(int inputAmount) {
-        accountBalance += inputAmount;
-        checkBalance();
-    }
 
-    static void withDrawAmount(int inputAmount) {
-        accountBalance -= inputAmount;
-        checkBalance();
-    }
-
-    static void checkBalance() {
-        System.out.println("________________________________");
-        System.out.println("Your balance is Rs. " + accountBalance);
-    }
 }
+
