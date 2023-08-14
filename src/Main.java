@@ -41,16 +41,16 @@ class IndianBankATM extends ATM{
 
             switch (userChoice)
             {
-                case 1:
+                case 1 -> {
                     System.out.print("Enter the amount to be deposited ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
                     if (isValidAmount(inputAmount))
                     {
                         depositAmount(inputAmount);
-                        break;
                     }
+                }
 
-                case 2:
+                case 2 -> {
                     System.out.print("Enter the amount to be withdrawn ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
                     if (isValidAmount(inputAmount))
@@ -60,20 +60,22 @@ class IndianBankATM extends ATM{
                             throw new InsufficientBalanceException("Insufficient account balance.");
                         }
                         withDrawAmount(inputAmount);
-                        break;
                     }
+                }
 
-                case 3:
+                case 3 -> {
                     checkBalance();
-                    break;
+                }
 
-                case 4:
+                case 4 -> {
                     System.out.println("Thank you, Have a nice day :)");
                     exit(0);
+                }
 
-                default:
+                default -> {
                     System.out.println("________________________________");
                     System.out.println("Invalid option, please retry with a valid option");
+                }
             }
         }while (true);
     }
