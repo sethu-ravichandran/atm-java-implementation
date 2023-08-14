@@ -44,26 +44,24 @@ class IndianBankATM extends ATM{
                 case 1:
                     System.out.print("Enter the amount to be deposited ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
-                    if (inputAmount <= 0 )
+                    if (isValidAmount(inputAmount))
                     {
-                        throw new InvalidAmountException("Amount must be greater than 0.");
+                        depositAmount(inputAmount);
+                        break;
                     }
-                    depositAmount(inputAmount);
-                    break;
 
                 case 2:
                     System.out.print("Enter the amount to be withdrawn ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
-                    if (inputAmount <= 0 )
+                    if (isValidAmount(inputAmount))
                     {
-                        throw new InvalidAmountException("Amount must be greater than 0.");
+                        if (getAccountBalance() < inputAmount)
+                        {
+                            throw new InsufficientBalanceException("Insufficient account balance.");
+                        }
+                        withDrawAmount(inputAmount);
+                        break;
                     }
-                    if (getAccountBalance() < inputAmount)
-                    {
-                        throw new InsufficientBalanceException("Insufficient account balance.");
-                    }
-                    withDrawAmount(inputAmount);
-                    break;
 
                 case 3:
                     checkBalance();
@@ -78,6 +76,14 @@ class IndianBankATM extends ATM{
                     System.out.println("Invalid option, please retry with a valid option");
             }
         }while (true);
+    }
+
+    private boolean isValidAmount(int inputAmount) throws InvalidAmountException {
+        if (inputAmount >0)
+        {
+            return true;
+        }
+        throw new InvalidAmountException("Amount must be greater than 0.");
     }
     private void depositAmount(int inputAmount) {
         addMoney(inputAmount);
