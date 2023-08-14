@@ -22,28 +22,10 @@ class ATM
 }
 
 class IndianBankATM extends ATM{
-    void depositAmount(int inputAmount) {
-        addMoney(inputAmount);
-        checkBalance();
-    }
 
-    void withDrawAmount(int inputAmount) {
-        takeMoney(inputAmount);
-        checkBalance();
-    }
-
-    void checkBalance() {
-        System.out.println("________________________________");
-        System.out.println("Your balance is Rs. " + getAccountBalance());
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-
+    public void initialize ()
+    {
         Scanner scanner = new Scanner(System.in);
-
-        IndianBankATM guindyATM = new IndianBankATM();
 
         int userChoice, inputAmount;
 
@@ -63,17 +45,17 @@ public class Main {
                 case 1:
                     System.out.print("Enter the amount to be deposited ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
-                    guindyATM.depositAmount(inputAmount);
+                    depositAmount(inputAmount);
                     break;
 
                 case 2:
                     System.out.print("Enter the amount to be withdrawn ... Rs.");
                     inputAmount = Integer.parseInt(scanner.nextLine());
-                    guindyATM.withDrawAmount(inputAmount);
+                    withDrawAmount(inputAmount);
                     break;
 
                 case 3:
-                    guindyATM.checkBalance();
+                    checkBalance();
                     break;
 
                 case 4:
@@ -84,6 +66,29 @@ public class Main {
                     System.out.println("Invalid option, please retry with a valid option");
             }
         }while (true);
+    }
+    private void depositAmount(int inputAmount) {
+        addMoney(inputAmount);
+        checkBalance();
+    }
+
+    private void withDrawAmount(int inputAmount) {
+        takeMoney(inputAmount);
+        checkBalance();
+    }
+
+    private void checkBalance() {
+        System.out.println("________________________________");
+        System.out.println("Your balance is Rs. " + getAccountBalance());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        IndianBankATM guindyATM = new IndianBankATM();
+        guindyATM.initialize();
+
     }
 
 
